@@ -17,7 +17,7 @@
       "Default": "true",
       "AllowedValues": [ "true" ],
       "ConstraintDescription" : "You MUST accept the EULA to run a minecraft server"
-    }
+    },
 
     "DBName": {
       "Default": "MyDatabase",
