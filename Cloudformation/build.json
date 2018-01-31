@@ -11,15 +11,7 @@
       "ConstraintDescription" : "must be the name of an existing EC2 KeyPair."
     },
 
-    "AcceptEULA": {
-      "Description" : "Accept the EULA for Minecraft?",
-      "Type": "String",
-      "Default": "true",
-      "AllowedValues": [ "true" ],
-      "ConstraintDescription" : "You MUST accept the EULA to run a minecraft server"
-    },
-
-    "DBName": {
+      "DBName": {
       "Default": "MyDatabase",
       "Description" : "MySQL database name",
       "Type": "String",
@@ -63,13 +55,12 @@
       "Description" : "WebServer EC2 instance type",
       "Type" : "String",
       "Default" : "t2.micro",
-      "AllowedValues" : [ "t2.micro" ]
-,
+      "AllowedValues" : [ "t2.micro" ],
       "ConstraintDescription" : "must be a valid EC2 instance type."
     },
 
     "SSHLocation" : {
-      "Description" : " The IP address range that can be used to SSH to the EC2 instances",
+      "Description" : " The IP address range that can be used to SSH to the EC2 instance",
       "Type": "String",
       "MinLength": "9",
       "MaxLength": "18",
@@ -81,115 +72,11 @@
 
   "Mappings" : {
     "AWSInstanceType2Arch" : {
-      "t1.micro"    : { "Arch" : "PV64"   },
-      "t2.nano"     : { "Arch" : "HVM64"  },
-      "t2.micro"    : { "Arch" : "HVM64"  },
-      "t2.small"    : { "Arch" : "HVM64"  },
-      "t2.medium"   : { "Arch" : "HVM64"  },
-      "t2.large"    : { "Arch" : "HVM64"  },
-      "m1.small"    : { "Arch" : "PV64"   },
-      "m1.medium"   : { "Arch" : "PV64"   },
-      "m1.large"    : { "Arch" : "PV64"   },
-      "m1.xlarge"   : { "Arch" : "PV64"   },
-      "m2.xlarge"   : { "Arch" : "PV64"   },
-      "m2.2xlarge"  : { "Arch" : "PV64"   },
-      "m2.4xlarge"  : { "Arch" : "PV64"   },
-      "m3.medium"   : { "Arch" : "HVM64"  },
-      "m3.large"    : { "Arch" : "HVM64"  },
-      "m3.xlarge"   : { "Arch" : "HVM64"  },
-      "m3.2xlarge"  : { "Arch" : "HVM64"  },
-      "m4.large"    : { "Arch" : "HVM64"  },
-      "m4.xlarge"   : { "Arch" : "HVM64"  },
-      "m4.2xlarge"  : { "Arch" : "HVM64"  },
-      "m4.4xlarge"  : { "Arch" : "HVM64"  },
-      "m4.10xlarge" : { "Arch" : "HVM64"  },
-      "c1.medium"   : { "Arch" : "PV64"   },
-      "c1.xlarge"   : { "Arch" : "PV64"   },
-      "c3.large"    : { "Arch" : "HVM64"  },
-      "c3.xlarge"   : { "Arch" : "HVM64"  },
-      "c3.2xlarge"  : { "Arch" : "HVM64"  },
-      "c3.4xlarge"  : { "Arch" : "HVM64"  },
-      "c3.8xlarge"  : { "Arch" : "HVM64"  },
-      "c4.large"    : { "Arch" : "HVM64"  },
-      "c4.xlarge"   : { "Arch" : "HVM64"  },
-      "c4.2xlarge"  : { "Arch" : "HVM64"  },
-      "c4.4xlarge"  : { "Arch" : "HVM64"  },
-      "c4.8xlarge"  : { "Arch" : "HVM64"  },
-      "g2.2xlarge"  : { "Arch" : "HVMG2"  },
-      "g2.8xlarge"  : { "Arch" : "HVMG2"  },
-      "r3.large"    : { "Arch" : "HVM64"  },
-      "r3.xlarge"   : { "Arch" : "HVM64"  },
-      "r3.2xlarge"  : { "Arch" : "HVM64"  },
-      "r3.4xlarge"  : { "Arch" : "HVM64"  },
-      "r3.8xlarge"  : { "Arch" : "HVM64"  },
-      "i2.xlarge"   : { "Arch" : "HVM64"  },
-      "i2.2xlarge"  : { "Arch" : "HVM64"  },
-      "i2.4xlarge"  : { "Arch" : "HVM64"  },
-      "i2.8xlarge"  : { "Arch" : "HVM64"  },
-      "d2.xlarge"   : { "Arch" : "HVM64"  },
-      "d2.2xlarge"  : { "Arch" : "HVM64"  },
-      "d2.4xlarge"  : { "Arch" : "HVM64"  },
-      "d2.8xlarge"  : { "Arch" : "HVM64"  },
-      "hi1.4xlarge" : { "Arch" : "HVM64"  },
-      "hs1.8xlarge" : { "Arch" : "HVM64"  },
-      "cr1.8xlarge" : { "Arch" : "HVM64"  },
-      "cc2.8xlarge" : { "Arch" : "HVM64"  }
+      "t2.micro"    : { "Arch" : "HVM64"  }
     },
 
     "AWSInstanceType2NATArch" : {
-      "t1.micro"    : { "Arch" : "NATPV64"   },
-      "t2.nano"     : { "Arch" : "NATHVM64"  },
-      "t2.micro"    : { "Arch" : "NATHVM64"  },
-      "t2.small"    : { "Arch" : "NATHVM64"  },
-      "t2.medium"   : { "Arch" : "NATHVM64"  },
-      "t2.large"    : { "Arch" : "NATHVM64"  },
-      "m1.small"    : { "Arch" : "NATPV64"   },
-      "m1.medium"   : { "Arch" : "NATPV64"   },
-      "m1.large"    : { "Arch" : "NATPV64"   },
-      "m1.xlarge"   : { "Arch" : "NATPV64"   },
-      "m2.xlarge"   : { "Arch" : "NATPV64"   },
-      "m2.2xlarge"  : { "Arch" : "NATPV64"   },
-      "m2.4xlarge"  : { "Arch" : "NATPV64"   },
-      "m3.medium"   : { "Arch" : "NATHVM64"  },
-      "m3.large"    : { "Arch" : "NATHVM64"  },
-      "m3.xlarge"   : { "Arch" : "NATHVM64"  },
-      "m3.2xlarge"  : { "Arch" : "NATHVM64"  },
-      "m4.large"    : { "Arch" : "NATHVM64"  },
-      "m4.xlarge"   : { "Arch" : "NATHVM64"  },
-      "m4.2xlarge"  : { "Arch" : "NATHVM64"  },
-      "m4.4xlarge"  : { "Arch" : "NATHVM64"  },
-      "m4.10xlarge" : { "Arch" : "NATHVM64"  },
-      "c1.medium"   : { "Arch" : "NATPV64"   },
-      "c1.xlarge"   : { "Arch" : "NATPV64"   },
-      "c3.large"    : { "Arch" : "NATHVM64"  },
-      "c3.xlarge"   : { "Arch" : "NATHVM64"  },
-      "c3.2xlarge"  : { "Arch" : "NATHVM64"  },
-      "c3.4xlarge"  : { "Arch" : "NATHVM64"  },
-      "c3.8xlarge"  : { "Arch" : "NATHVM64"  },
-      "c4.large"    : { "Arch" : "NATHVM64"  },
-      "c4.xlarge"   : { "Arch" : "NATHVM64"  },
-      "c4.2xlarge"  : { "Arch" : "NATHVM64"  },
-      "c4.4xlarge"  : { "Arch" : "NATHVM64"  },
-      "c4.8xlarge"  : { "Arch" : "NATHVM64"  },
-      "g2.2xlarge"  : { "Arch" : "NATHVMG2"  },
-      "g2.8xlarge"  : { "Arch" : "NATHVMG2"  },
-      "r3.large"    : { "Arch" : "NATHVM64"  },
-      "r3.xlarge"   : { "Arch" : "NATHVM64"  },
-      "r3.2xlarge"  : { "Arch" : "NATHVM64"  },
-      "r3.4xlarge"  : { "Arch" : "NATHVM64"  },
-      "r3.8xlarge"  : { "Arch" : "NATHVM64"  },
-      "i2.xlarge"   : { "Arch" : "NATHVM64"  },
-      "i2.2xlarge"  : { "Arch" : "NATHVM64"  },
-      "i2.4xlarge"  : { "Arch" : "NATHVM64"  },
-      "i2.8xlarge"  : { "Arch" : "NATHVM64"  },
-      "d2.xlarge"   : { "Arch" : "NATHVM64"  },
-      "d2.2xlarge"  : { "Arch" : "NATHVM64"  },
-      "d2.4xlarge"  : { "Arch" : "NATHVM64"  },
-      "d2.8xlarge"  : { "Arch" : "NATHVM64"  },
-      "hi1.4xlarge" : { "Arch" : "NATHVM64"  },
-      "hs1.8xlarge" : { "Arch" : "NATHVM64"  },
-      "cr1.8xlarge" : { "Arch" : "NATHVM64"  },
-      "cc2.8xlarge" : { "Arch" : "NATHVM64"  }
+      "t2.micro"    : { "Arch" : "NATHVM64"  }
     }
 ,
     "AWSRegionArch2AMI" : {
@@ -232,7 +119,8 @@
                 "mysql-libs"   : [],
                 "httpd"        : [],
                 "php"          : [],
-                "php-mysql"    : []
+                "php-mysql"    : [],
+                "java-1.8.0"   : []
               }
             },
 
@@ -373,21 +261,7 @@
         "UserData"       : { "Fn::Base64" : { "Fn::Join" : ["", [
              "#!/bin/bash -xe\n",
              "yum update -y aws-cfn-bootstrap\n",
-             "sudo yum install java-1.8.0 -y\n",
              "sudo yum remove java-1.7.0-openjdk -y\n"
-
-             "# create directory for minecraft server\n"
-             "mkdir minecraft\n"
-             "cd minecraft\n"
-
-             "# get minecraft installer\n"
-             "wget -O minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/versions/1.12.1/minecraft_server.1.12.1.jar\n"
-
-             "# accept EULA\n"
-             "echo 'eula=true' > eula.txt\n"
-
-             "# run minecraft server\n"
-             "java -Xmx1024M -Xms1024M -jar minecraft_server.jar nogui\n"
 
              "# Install the files and packages from the metadata\n",
              "/opt/aws/bin/cfn-init -v ",
