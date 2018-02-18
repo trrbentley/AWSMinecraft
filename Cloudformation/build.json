@@ -1,7 +1,7 @@
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
 
-  "Description" : "AWS CloudFormation Sample Template LAMP_Single_Instance: Create a LAMP stack using a single EC2 instance and a local MySQL database for storage. This template demonstrates using the AWS CloudFormation bootstrap scripts to install the packages and files necessary to deploy the Apache web server, PHP and MySQL at instance launch time. **WARNING** This template creates an Amazon EC2 instance. You will be billed for the AWS resources used if you create a stack from this template.",
+  "Description" : "This CloudFormation Template will create a Multicraft server which can download and run Minecraft.",
 
   "Parameters" : {
 
@@ -17,7 +17,6 @@
       "Type": "String",
       "MinLength": "1",
       "MaxLength": "64",
-      "AllowedPattern" : "[a-zA-Z][a-zA-Z0-9]*",
       "ConstraintDescription" : "must begin with a letter and contain only alphanumeric characters."
     },
 
@@ -27,7 +26,6 @@
       "Type": "String",
       "MinLength": "1",
       "MaxLength": "64",
-      "AllowedPattern" : "[a-zA-Z][a-zA-Z0-9]*",
       "ConstraintDescription" : "must begin with a letter and contain only alphanumeric characters."
     },
 
@@ -113,7 +111,7 @@
 
   "Resources" : {
 
-    "WebServerInstance": {
+    "MultiCraftInstance": {
       "Type": "AWS::EC2::Instance",
       "Metadata" : {
         "AWS::CloudFormation::Init" : {
@@ -203,7 +201,7 @@
               "/tmp/setup.mysql" : {
                 "content" : { "Fn::Join" : ["", [
                   "CREATE DATABASE ", { "Ref" : "MPDBName" }, ";\n",
-                  "GRANT ALL ON ", { "Ref" : "MPDBName" }, ".* TO '", { "Ref" : "DBUser" }, "'@localhost IDENTIFIED BY '", { "Ref" : "DBPassword" }, "';\n"
+                  "GRANT ALL ON ", { "Ref" : "MPDBName" }, ".* TO '", { "Ref" : "DBUser" }, "'@localhost IDENTIFIED BY '", { "Ref" : "DBPassword" }, "';\n",
                   "CREATE DATABASE ", { "Ref" : "MDDBName" }, ";\n",
                   "GRANT ALL ON ", { "Ref" : "MDDBName" }, ".* TO '", { "Ref" : "DBUser" }, "'@localhost IDENTIFIED BY '", { "Ref" : "DBPassword" }, "';\n"
                   ]]},
@@ -226,10 +224,10 @@
                 "content": { "Fn::Join" : ["", [
                   "[cfn-auto-reloader-hook]\n",
                   "triggers=post.update\n",
-                  "path=Resources.WebServerInstance.Metadata.AWS::CloudFormation::Init\n",
+                  "path=Resources.MultiCraftInstance.Metadata.AWS::CloudFormation::Init\n",
                   "action=/opt/aws/bin/cfn-init -v ",
                   "         --stack ", { "Ref" : "AWS::StackName" },
-                  "         --resource WebServerInstance ",
+                  "         --resource MultiCraftInstance ",
                   "         --configsets InstallAndRun ",
                   "         --region ", { "Ref" : "AWS::Region" }, "\n",
                   "runas=root\n"
@@ -272,26 +270,26 @@
         "ImageId" : { "Fn::FindInMap" : [ "AWSRegionArch2AMI", { "Ref" : "AWS::Region" },
                           { "Fn::FindInMap" : [ "AWSInstanceType2Arch", { "Ref" : "InstanceType" }, "Arch" ] } ] },
         "InstanceType"   : { "Ref" : "InstanceType" },
-        "SecurityGroups" : [ {"Ref" : "WebServerSecurityGroup"} ],
+        "SecurityGroups" : [ {"Ref" : "MultiCraftSecurityGroup"} ],
         "KeyName"        : { "Ref" : "KeyName" },
         "UserData"       : { "Fn::Base64" : { "Fn::Join" : ["", [
              "#!/bin/bash -xe\n",
              "yum update -y aws-cfn-bootstrap\n",
-             "sudo yum remove java-1.7.0-openjdk -y\n"
-             "sudo wget http://www.multicraft.org/download/linux64 -O multicraft.tar.gz\n"
-             "sudo tar xvzf multicraft.tar.gz\n"
+             "sudo yum remove java-1.7.0-openjdk -y\n",
+             "sudo wget http://www.multicraft.org/download/linux64 -O multicraft.tar.gz\n",
+             "sudo tar xvzf multicraft.tar.gz\n",
 
              "# Install the files and packages from the metadata\n",
              "/opt/aws/bin/cfn-init -v ",
              "         --stack ", { "Ref" : "AWS::StackName" },
-             "         --resource WebServerInstance ",
+             "         --resource MultiCraftInstance ",
              "         --configsets InstallAndRun ",
              "         --region ", { "Ref" : "AWS::Region" }, "\n",
 
              "# Signal the status from cfn-init\n",
              "/opt/aws/bin/cfn-signal -e $? ",
              "         --stack ", { "Ref" : "AWS::StackName" },
-             "         --resource WebServerInstance ",
+             "         --resource MultiCraftInstance ",
              "         --region ", { "Ref" : "AWS::Region" }, "\n"
         ]]}}
       },
@@ -302,7 +300,7 @@
       }
     },
 
-    "WebServerSecurityGroup" : {
+    "MultiCraftSecurityGroup" : {
       "Type" : "AWS::EC2::SecurityGroup",
       "Properties" : {
         "GroupDescription" : "Enable HTTP access via port 80",
@@ -317,7 +315,7 @@
   "Outputs" : {
     "WebsiteURL" : {
       "Description" : "URL for newly created LAMP stack",
-      "Value" : { "Fn::Join" : ["", ["http://", { "Fn::GetAtt" : [ "WebServerInstance", "PublicDnsName" ]}]] }
+      "Value" : { "Fn::Join" : ["", ["http://", { "Fn::GetAtt" : [ "MultiCraftInstance", "PublicDnsName" ]}]] }
     }
   }
 }
