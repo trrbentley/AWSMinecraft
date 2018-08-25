@@ -6,4 +6,4 @@ CloudFormation template was taken off the standard AWS webssite, and re-purposed
 
 This uses Multicraft to administrate the site. Since minecraft can't be scaled out (possibly) this will only create one server that you can use to administer and play mincraft on.
 
-NOTE: If you want a quick way to create a minecraft server, you can always use the 
+NOTE: If you want a quick way to create a minecraft server, you can always use the 'minecraftstartup.sh' script in your EC2 startup to quickly create a server. (make sure to have the appropriate ports and whatnot available!)
